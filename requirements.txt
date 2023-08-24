@@ -2,3 +2,8 @@ fastapi
 passlib
 python-jose[cryptography]
 sqlalchemy
+python-dotenv
+psycopg2-binary
+python-multipart
+uvicorn
+pydantic[email]

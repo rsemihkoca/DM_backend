@@ -1,3 +1,6 @@
+import sys
+sys.path.append(".")
+sys.path.append("..")
 from fastapi import FastAPI, Request
 import time
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,7 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(dashboard.router)
-# app.include_router(user.router)
+app.include_router(user.router)
 app.include_router(auth.router)
 
 @app.get("/")
@@ -31,6 +34,6 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     return response
 
-if __name__ == "__debug__":
+if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

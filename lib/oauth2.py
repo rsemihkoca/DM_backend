@@ -1,5 +1,4 @@
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from passlib.context import CryptContext
 from fastapi import Depends, FastAPI, HTTPException, status
 from database.schemes import Token, TokenData, User
 from datetime import datetime, timedelta
@@ -7,6 +6,7 @@ from jose import JWTError, jwt
 from typing import Annotated, Union
 from lib.config import Config
 from database.crud import get_user_by_username
+from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -19,18 +19,11 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-
-# def get_user(db, username: str):
-#     if username in db:
-#         user_dict = db[username]
-#         return UserInDB(**user_dict)
-
-
 def authenticate_user(username: str, password: str):
     user = get_user_by_username(username)
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password):
         return False
     return user
 
@@ -66,9 +59,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     return user
 
 
-async def get_current_active_user(
-    current_user: Annotated[User, Depends(get_current_user)]
-):
+async def get_current_active_user(current_user: Annotated[User, Depends(get_current_user)]):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user

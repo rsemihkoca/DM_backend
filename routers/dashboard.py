@@ -1,5 +1,5 @@
 
-from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
+from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter, Request
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -10,13 +10,13 @@ router = APIRouter(
 
 
 router.get("/general-situation")
-def get_general_situation():
+async def get_general_situation(request: Request):
     pass
 
 router.get("/affiliates")
-def get_affiliates():
+async def get_affiliates(request: Request):
     pass
 
 router.get("/natural-members")
-def get_natural_members():
+async def get_natural_members(request: Request):
     pass
