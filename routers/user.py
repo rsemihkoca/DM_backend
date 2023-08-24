@@ -12,8 +12,8 @@ router = APIRouter( prefix="/users", tags=["Users"])
 async def create_users(request: Request, user: Annotated[UserCreateForm, Depends()], current_user: Annotated[User, Depends(get_current_active_user)]):
 
     #check if user already exists
-    user = crud.get_user_by_username(user.username)
-    if user:
+    result = crud.get_user_by_username(user.username)
+    if result:
         raise HTTPException(status_code=400, detail="User already exists")
 
     hashed_password = get_password_hash(user.password)
