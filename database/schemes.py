@@ -22,10 +22,6 @@ class User(BaseModel):
 
 
 class UserCreateForm:
-    # full_name : str
-    # username : str
-    # email : EmailStr
-    # password : str
 
     def __init__(
         self,
@@ -54,3 +50,26 @@ class UserOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ApiRequest(BaseModel):
+    start_date: str
+    end_date: str
+
+class ApiResponse(BaseModel):
+    CountDeposit: float
+    SumDepositAmount: float
+    WithdrawalCount: float
+    WithdrawalAmount: float
+    NetDepositAmount: float
+    CountTotalBalance: float
+    SumTotalBalance: float
+    SumSportTotalBetAmount: float
+    SumSportRealMoneyWonAmount: float
+    SportsBookInvoice: float
+    SumCasinoTotalBetAmount: float
+    SumCasinoRealMoneyWonAmount: float
+    CasinoInvoice: float
+    PaymentCommission: float
+    AffiliateCommission: float
+    ProviderCommission: float
+    TotalInvoice: float
