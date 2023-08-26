@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 
-@router.get("/general-situation", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
+@router.post("/general-situation", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
 async def get_general_situation(request: Request, dates: ApiRequest):
     table = GeneralSituationDashboard
 
@@ -35,7 +35,7 @@ async def get_general_situation(request: Request, dates: ApiRequest):
 
     return result
 
-@router.get("/affiliates", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
+@router.post("/affiliates", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
 async def get_affiliates(request: Request, dates: ApiRequest):
     table = AffiliateDashboard
 
@@ -57,7 +57,7 @@ async def get_affiliates(request: Request, dates: ApiRequest):
 
     return result
 
-@router.get("/natural-members", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
+@router.post("/natural-members", dependencies=[Depends(get_current_active_user)], response_model=ApiResponse)
 async def get_natural_members(request: Request, dates: ApiRequest):
     table = NaturalMembersDashboard
 
